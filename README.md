@@ -240,3 +240,11 @@ Android 的 `localStorage` 随应用数据保存，卸载或清除应用数据�
   这是 5 人 Mesh 下能跑顺的关键。
 
 协议细节见 [`docs/protocol.md`](docs/protocol.md)。
+
+## 许可证
+
+[MIT](LICENSE) © 2026 Huo Ran
+
+第三方依赖遵循各自的许可证，主要依赖均为宽松许可：Electron、React、Vite、Konva、
+Fastify、Socket.IO、Capacitor、zod、zustand 为 MIT，pdfjs-dist 为 Apache-2.0。
+
