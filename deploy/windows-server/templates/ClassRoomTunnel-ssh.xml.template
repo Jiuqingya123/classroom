@@ -1,0 +1,16 @@
+<service>
+  <id>ClassRoomTunnel</id>
+  <name>ClassRoom Tunnel (ssh)</name>
+  <description>SSH 反向隧道：本机 8090 → 云端 127.0.0.1:8091</description>
+  <executable>{{POWERSHELL}}</executable>
+  <arguments>-NoProfile -ExecutionPolicy Bypass -File "{{ROOT}}\tools\ssh-tunnel.ps1" -Server "{{SSH_SERVER}}" -User "{{SSH_USER}}" -Key "{{SSH_KEY}}"</arguments>
+  <workingdirectory>{{ROOT}}</workingdirectory>
+  <startmode>Automatic</startmode>
+  <onfailure action="restart" delay="10 sec"/>
+  <resetfailure>1 hour</resetfailure>
+  <logpath>{{ROOT}}\logs</logpath>
+  <log mode="roll-by-size">
+    <sizeThreshold>10240</sizeThreshold>
+    <keepFiles>8</keepFiles>
+  </log>
+</service>

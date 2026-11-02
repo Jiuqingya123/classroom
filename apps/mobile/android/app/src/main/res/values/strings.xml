@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">ClassRoom</string>
+    <string name="title_activity_main">ClassRoom</string>
+    <string name="package_name">com.hcf.classroom</string>
+    <string name="custom_url_scheme">com.hcf.classroom</string>
+</resources>

@@ -1,0 +1,20 @@
+{
+  "name": "@classroom/mobile",
+  "version": "1.1.6",
+  "private": true,
+  "description": "ClassRoom Android 客户端（Capacitor + 共享 React 渲染层）",
+  "scripts": {
+    "sync": "cap sync android",
+    "open": "cap open android",
+    "apk:debug": "cd android && ./gradlew assembleDebug",
+    "apk:release": "cd android && ./gradlew assembleRelease"
+  },
+  "dependencies": {
+    "@capacitor/android": "^7.6.9",
+    "@capacitor/core": "^7.6.9",
+    "@capacitor/status-bar": "^7.0.6"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^7.6.9"
+  }
+}

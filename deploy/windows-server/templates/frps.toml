@@ -1,0 +1,13 @@
+bindPort = {{FRP_PORT}}
+# 只让 nginx 能访问隧道端口，8091 不对外暴露
+proxyBindAddr = "127.0.0.1"
+
+auth.method = "token"
+auth.token = "{{FRP_TOKEN}}"
+
+# 控制端口也只接受 TLS，避免 token 和隧道内容明文传输
+transport.tls.force = true
+
+log.to = "/opt/classroom-relay/frps.log"
+log.level = "info"
+log.maxDays = 7

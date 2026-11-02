@@ -1,0 +1,20 @@
+node_modules/
+dist/
+out/
+release/
+data/
+*.log
+.DS_Store
+.env
+.env.local
+.env.*.local
+*.db
+*.db-shm
+*.db-wal
+# SQLite 运行时库文件（本项目默认库名，含用户数据，严禁提交）
+_memory_
+coverage/
+.vite/
+.cache/
+*.pem
+*.secret

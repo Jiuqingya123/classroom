@@ -1,0 +1,16 @@
+<service>
+  <id>ClassRoomServer</id>
+  <name>ClassRoom Server</name>
+  <description>ClassRoom 教学平台服务端（Node 24）</description>
+  <executable>{{ROOT}}\node\node.exe</executable>
+  <arguments>"{{ROOT}}\app\server.mjs"</arguments>
+  <workingdirectory>{{ROOT}}</workingdirectory>
+  <startmode>Automatic</startmode>
+  <onfailure action="restart" delay="10 sec"/>
+  <resetfailure>1 hour</resetfailure>
+  <logpath>{{ROOT}}\logs</logpath>
+  <log mode="roll-by-size">
+    <sizeThreshold>10240</sizeThreshold>
+    <keepFiles>8</keepFiles>
+  </log>
+</service>

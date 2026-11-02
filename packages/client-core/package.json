@@ -1,0 +1,16 @@
+{
+  "name": "@classroom/client-core",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "@classroom/shared": "*",
+    "socket.io-client": "^4.8.4"
+  }
+}

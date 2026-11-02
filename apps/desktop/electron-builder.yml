@@ -1,0 +1,103 @@
+appId: com.hcf.classroom
+productName: ClassRoom
+copyright: Copyright © 2026 ClassRoom
+
+directories:
+  # 与 out/（vite 产物）区分开；dist/ 已在 .gitignore 里
+  output: dist
+  buildResources: build
+
+# 渲染层已经被 vite 打包进 out/，这里只需要产物和 package.json
+files:
+  - out/**/*
+  - package.json
+  - '!**/*.map'
+  - '!**/*.md'
+
+asar: true
+compression: normal
+# 服务端零原生依赖，客户端也没有需要重编译的模块，跳过 rebuild 省一半打包时间
+npmRebuild: false
+# 关掉构建中途的联网发布探测
+publish: null
+
+# ───────────────────────────── macOS ─────────────────────────────
+mac:
+  category: public.app-category.education
+  icon: build/icon.icns
+  target:
+    - target: dmg
+      arch:
+        - arm64
+        - x64
+    - target: zip # 自动更新需要 zip，同时方便不用 dmg 的人直接解压
+      arch:
+        - arm64
+        - x64
+  hardenedRuntime: true
+  gatekeeperAssess: false
+  entitlements: build/entitlements.mac.plist
+  entitlementsInherit: build/entitlements.mac.plist
+  # "-" = ad-hoc 签名。没有 Apple Developer 证书时，不签名（identity: null）的包
+  # 在 Apple Silicon 上会直接报「已损坏」根本打不开。
+  # 拿到 Developer ID 后：删掉这一行，并设置 CSC_LINK / CSC_NAME 环境变量走正式签名 + 公证。
+  # hardenedRuntime + ad-hoc 需要 entitlements 里的 disable-library-validation，已包含。
+  identity: '-'
+  extendInfo:
+    NSCameraUsageDescription: 上课时需要使用摄像头，让你和学生互相看见。
+    NSMicrophoneUsageDescription: 上课时需要使用麦克风，用于语音交流。
+    NSScreenCaptureUsageDescription: 屏幕共享需要录制屏幕内容。
+    LSApplicationCategoryType: public.app-category.education
+    # 强制使用独立显卡外的默认行为不用改，这里只声明支持高分辨率
+    NSHighResolutionCapable: true
+  artifactName: ${productName}-${version}-${arch}.${ext}
+
+dmg:
+  artifactName: ${productName}-${version}-${arch}.${ext}
+  title: ${productName} ${version}
+  contents:
+    - x: 140
+      y: 210
+    - x: 400
+      y: 210
+      type: link
+      path: /Applications
+
+# ───────────────────────────── Windows ─────────────────────────────
+win:
+  icon: build/icon.ico
+  target:
+    - target: nsis
+      arch:
+        - x64
+    - target: zip
+      arch:
+        - x64
+  # 安装包在 nsis.artifactName 里单独命名，这里给便携 zip 用
+  artifactName: ${productName}-${version}-win-${arch}.${ext}
+  # 没买代码签名证书，Windows SmartScreen 首次运行会提示「未知发布者」，属于预期
+  signAndEditExecutable: true
+
+nsis:
+  artifactName: ${productName}-Setup-${version}-${arch}.${ext}
+  oneClick: false # 给用户选安装目录的机会，别默认闷头装 C 盘
+  perMachine: false # 装到用户目录，免 UAC，公司电脑也能装
+  allowElevation: true
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: ClassRoom
+  installerIcon: build/icon.ico
+  uninstallerIcon: build/icon.ico
+  installerHeaderIcon: build/icon.ico
+  # 卸载时保留 %APPDATA%\ClassRoom（登录态、偏好），重装不用重新登录
+  deleteAppDataOnUninstall: false
+  runAfterFinish: true
+
+# ───────────────────────────── Linux（顺带支持，非交付重点） ─────────────────────────────
+linux:
+  icon: build/icon.png
+  category: Education
+  target:
+    - AppImage
+  artifactName: ${productName}-${version}-${arch}.${ext}

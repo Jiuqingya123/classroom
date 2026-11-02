@@ -1,0 +1,17 @@
+serverAddr = "{{FRP_SERVER}}"
+serverPort = {{FRP_PORT}}
+loginFailExit = false
+
+auth.method = "token"
+auth.token = "{{FRP_TOKEN}}"
+
+# 云端 frps 强制 TLS；客户端开启即可，frp 自带加密通道
+transport.tls.enable = true
+transport.poolCount = 5
+
+[[proxies]]
+name = "classroom"
+type = "tcp"
+localIP = "127.0.0.1"
+localPort = 8090
+remotePort = 8091

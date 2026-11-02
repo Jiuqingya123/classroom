@@ -1,0 +1,46 @@
+{
+  "name": "classroom",
+  "version": "1.1.6",
+  "private": true,
+  "description": "ClassIn 类在线互动教室 — Electron + WebRTC Mesh + 协同白板",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "npm run dev -w @classroom/desktop",
+    "dev:server": "npm run dev -w @classroom/server",
+    "dev:all": "concurrently -n server,app -c cyan,magenta \"npm:dev:server\" \"npm:dev\"",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "node scripts/smoke.mjs",
+    "test:unit": "tsx scripts/unit-test.mts",
+    "test:lcic": "tsx scripts/lcic-test.mts",
+    "smoke": "node scripts/smoke.mjs",
+    "capture": "electron --no-sandbox scripts/capture.cjs",
+    "check:order": "tsx scripts/check-order.ts",
+    "test:wb": "electron --no-sandbox scripts/wb-test.cjs",
+    "test:rtc": "electron --no-sandbox scripts/rtc-test.cjs",
+    "dev:remote": "CLASSROOM_SERVER_URL=http://<PROD_SERVER_IP>:9999 npm run dev",
+    "dev:remote:web": "CLASSROOM_SERVER_URL=http://<PROD_SERVER_IP>:9999 VITE_SERVER_URL=http://<PROD_SERVER_IP>:9999 npm run dev",
+    "test:turn": "electron --no-sandbox scripts/turn-test.cjs",
+    "test:file": "node scripts/file-test.mjs",
+    "test:pdf": "electron --no-sandbox scripts/pdf-test.cjs",
+    "deploy:push": "bash scripts/deploy-push.sh",
+    "icon": "python scripts/make-icon.py",
+    "dist:mac": "npm run dist:mac -w @classroom/desktop",
+    "dist:win": "npm run dist:win -w @classroom/desktop",
+    "dist:linux": "npm run dist:linux -w @classroom/desktop",
+    "pack:dir": "npm run pack:dir -w @classroom/desktop",
+    "test:media": "tsx scripts/media-test.mts",
+    "test:ink": "tsx scripts/ink-render-test.mts",
+    "test:pressure": "tsx scripts/stroke-pressure-test.mts"
+  },
+  "devDependencies": {
+    "@types/node": "^24.7.0",
+    "concurrently": "^9.2.1",
+    "typescript": "~5.9.3"
+  }
+}
